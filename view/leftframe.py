@@ -15,9 +15,10 @@ class LeftFrame(tkinter.Frame):
         self.configuration = config.read()
 
         self.config(
-            width=container.winfo_screenwidth(), 
+            width=container.winfo_screenwidth()-(int(container.winfo_screenwidth()/2)), 
             height=container.winfo_screenheight(), 
             background=self.configuration["bgMain"])
+
         self.place(x=0, y=0)
 
         self.boolBrightening = tkinter.BooleanVar()
@@ -35,7 +36,7 @@ class LeftFrame(tkinter.Frame):
 
     def loadImageFrame(self):
         self.f0 = tkinter.Frame(self, width=350, height=350, background=self.configuration["bgFrame1"])
-        self.f0.place(x=400, y=100)
+        self.f0.place(x=10, y=10)
 
         self.f1 = tkinter.LabelFrame(self.f0, width=330, height=330, background=self.configuration["bgFrame1"], text="  Input Image  ")
         self.f1.place(x=10, y=10)
@@ -77,7 +78,7 @@ class LeftFrame(tkinter.Frame):
 
     def resultImageFrame(self):
         self.f2 = tkinter.Frame(self, width=350, height=350, background=self.configuration["bgFrame1"])
-        self.f2.place(x=770, y=100)
+        self.f2.place(x=380, y=10)
 
         self.f3 = tkinter.LabelFrame(self.f2, width=330, height=330, background=self.configuration["bgFrame1"], text="  Result of Image Enhancement  ")
         self.f3.place(x=10, y=10)
@@ -96,12 +97,12 @@ class LeftFrame(tkinter.Frame):
             width=12).place(x=10, y=260)
         
         self.f4 = tkinter.Frame(self, width=720, height=340, background=self.configuration["bgFrame1"])
-        self.f4.place(x=400, y=470)
+        self.f4.place(x=10, y=380)
 
         self.f5 = tkinter.LabelFrame(self.f4, width=700, height=320, background=self.configuration["bgFrame1"], text="  Image Enhancement Processing  ")
         self.f5.place(x=10, y=10)
 
-        labels     = ["Brightening", "Contrast Strect", "Smoothing", "Sharpening"]
+        labels     = ["brightening", "contrass", "smoothing", "sharpening"]
         boolLabels = [self.boolBrightening, self.boolContrassStrect, self.boolSmoothing, self.boolSharpening]
         for i, var in enumerate([self.brightening, self.contrastStrect, self.smoothing, self.sharpening]):
             tkinter.Checkbutton(
@@ -116,7 +117,7 @@ class LeftFrame(tkinter.Frame):
                 text=labels[i]
             ).place(x=50,y=38+(55)*i)
 
-            tkinter.Scale(
+            scale = tkinter.Scale(
                 self.f5,
                 from_=0,
                 to=100,
@@ -125,7 +126,9 @@ class LeftFrame(tkinter.Frame):
                 borderwidth=5,
                 length=450,
                 variable=var
-            ).place(x=210,y=10+(55)*i)
+            )
+            scale.set(self.configuration["enhancement"][labels[i]]["value"])
+            scale.place(x=210,y=10+(55)*i)
 
         tkinter.Button(
             self.f5, 

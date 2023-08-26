@@ -8,6 +8,7 @@ load_dotenv()
 
 filename = f'{os.getenv("CONFIG_NAME")}.json'
 width    = int(os.getenv("WINDOW_WIDTH"))
+imageSize = int(os.getenv("IMAGE_SIZE"))
 
 
 if not os.path.exists(filename):
@@ -17,6 +18,7 @@ if not os.path.exists(filename):
         "bgMain": "#b7bcc4",
         "bgFrame": "#8d9199",
         "bgFrame1": "#f0f0f0",
+        "imageSize": imageSize,
         "imagePath": None,
         "enhancement": {
             "brightening": {
@@ -35,7 +37,8 @@ if not os.path.exists(filename):
                 "value": 0,
                 "status": False,
             }
-        }
+        },
+        "yFrame": 60
     }
                     
     with open(filename, "w") as outfile:

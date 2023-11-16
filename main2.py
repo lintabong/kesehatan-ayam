@@ -20,6 +20,7 @@ class App(tkinter.Tk):
         super().__init__()
 
         w = 1430
+
         h = 850
 
         self.title("")

@@ -81,6 +81,7 @@ def extract_wavelet(filepath):
 
     return LL.mean(), HL.mean()
 
+
 def predict(imgpath):
     imagePaths = getListOfFiles("./datasets/")
     x = []
@@ -105,6 +106,7 @@ def predict(imgpath):
     knn.fit(data, classes)
 
     imgtest = extract_wavelet(imgpath)
+    
 
     predict_true = 0
     for i, _ in enumerate(classes):
